@@ -1,0 +1,32 @@
+name: CodSpeed Benchmarks
+
+on:
+  push:
+    branches:
+      - "main" # or "master"
+  pull_request:
+  # `workflow_dispatch` allows CodSpeed to trigger backtest
+  # performance analysis in order to generate initial data.
+  workflow_dispatch:
+
+jobs:
+  benchmarks:
+    name: Run benchmarks
+    runs-on: codspeed-macro
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+
+      - uses: moonrepo/setup-rust@v1
+        with:
+          channel: stable
+
+      - name: Install latest version of the codspeed-go-runner
+        run: cargo install --git https://github.com/CodSpeedHQ/codspeed-go/ --branch cod-1666-codspeed-go-is-unable-to-run-benchmarks-on-go-modules-with
+
+      - name: Run the benchmarks
+        uses: CodSpeedHQ/action@v4
+        with:
+          working-directory: pdata/pprofile/
+          mode: walltime
+          run: go test -bench=.
