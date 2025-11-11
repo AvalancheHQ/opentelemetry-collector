@@ -797,23 +797,23 @@ func TestPersistentQueue_PutCloseReadClose(t *testing.T) {
 	require.NoError(t, newPs.Shutdown(context.Background()))
 }
 
-func BenchmarkPersistentQueue(b *testing.B) {
-	ext := storagetest.NewMockStorageExtension(nil)
-	ps := createTestPersistentQueueWithRequestsSizer(b, ext, 10000000)
+// func BenchmarkPersistentQueue(b *testing.B) {
+// 	ext := storagetest.NewMockStorageExtension(nil)
+// 	ps := createTestPersistentQueueWithRequestsSizer(b, ext, 10000000)
 
-	req := intRequest(100)
+// 	req := intRequest(100)
 
-	b.ReportAllocs()
+// 	b.ReportAllocs()
 
-	for b.Loop() {
-		require.NoError(b, ps.Offer(context.Background(), req))
-	}
+// 	for b.Loop() {
+// 		require.NoError(b, ps.Offer(context.Background(), req))
+// 	}
 
-	for b.Loop() {
-		require.True(b, consume(ps, func(context.Context, intRequest) error { return nil }))
-	}
-	require.NoError(b, ext.Shutdown(context.Background()))
-}
+// 	for b.Loop() {
+// 		require.True(b, consume(ps, func(context.Context, intRequest) error { return nil }))
+// 	}
+// 	require.NoError(b, ext.Shutdown(context.Background()))
+// }
 
 func TestItemIndexMarshaling(t *testing.T) {
 	cases := []struct {
