@@ -31,5 +31,5 @@ jobs:
         uses: CodSpeedHQ/action@daf3e64a6d2f9906e7267edc3b9d354262c8442f # v4.4.0
         with:
           mode: walltime
-          run: make for-all-target TARGET="benchmark"
+          run: make for-all-target TARGET="codspeed-benchmark"
           cache-instruments: false
