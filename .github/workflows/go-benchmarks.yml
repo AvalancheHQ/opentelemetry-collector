@@ -28,6 +28,11 @@ jobs:
             ~/go/bin
             ~/go/pkg/mod
           key: go-cache-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/go.sum') }}
+
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install custom codspeed-go-runner
+        run: cargo install --git https://github.com/CodSpeedHQ/codspeed-go
+          
       - name: Run the benchmarks
         uses: CodSpeedHQ/action@346a2d8a8d9d38909abd0bc3d23f773110f076ad # v4.4.1
         with:
